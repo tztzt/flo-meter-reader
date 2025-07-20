@@ -1,5 +1,5 @@
 import { sameRowTypeAsPrev } from "./utils/sameRowTypeAsPrev";
-import { isInvalidValue } from "./utils/isValidValue";
+import { isValidValue } from "./utils/isValidValue";
 import { RecordType } from "@/types";
 import { getNimInterval } from "./utils/getNimInterval";
 
@@ -85,7 +85,7 @@ export const TableRow = ({
   const filteredRow =
     rowData[0] === RecordType.INTERVAL_DATA
       ? rowData
-      : rowData.filter(isInvalidValue);
+      : rowData.filter(isValidValue);
 
   // for data interval rows, we need to check the NIM data to infer the number of interval data cells
   const nimInterval = getNimInterval(data, index);

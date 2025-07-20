@@ -1,7 +1,7 @@
 /**
  * Assume that dates given from the NEM12 data follow UTC+08
  */
-const toUTC8SQLTimestamp = (date: Date) => {
+const toSQLTimestamp = (date: Date) => {
   const pad = (n: number) => n.toString().padStart(2, "0");
 
   const year = date.getFullYear();
@@ -11,7 +11,7 @@ const toUTC8SQLTimestamp = (date: Date) => {
   return `${year}-${month}-${day} 00:00:00`;
 };
 
-export function genNEM12Sql(data: string[][]): string[] {
+export function generateSQLNem12(data: string[][]): string[] {
   const records = new Map<string, number[]>();
 
   let currentNMI = "";
@@ -23,7 +23,10 @@ export function genNEM12Sql(data: string[][]): string[] {
 
     if (rowType === "200") {
       currentNMI = row[1];
-      intervalLength = parseInt(row[-2]) || 30;
+
+      const unsafeIntervalValue = row[row.length - 2]; // safely get second last
+      const parsed = parseInt(unsafeIntervalValue);
+      intervalLength = isNaN(parsed) ? 30 : parsed;
     }
 
     if (rowType === "300" && currentNMI) {
@@ -33,7 +36,7 @@ export function genNEM12Sql(data: string[][]): string[] {
         parseInt(dateStr.slice(4, 6)) - 1,
         parseInt(dateStr.slice(6, 8))
       );
-      const timestamp = toUTC8SQLTimestamp(baseDate);
+      const timestamp = toSQLTimestamp(baseDate);
 
       currentKey = `${currentNMI}~${timestamp}`;
 
@@ -42,10 +45,11 @@ export function genNEM12Sql(data: string[][]): string[] {
       for (let i = 0; i < length; i++) {
         const value = row[i + 2];
         if (!value || isNaN(parseFloat(value))) continue;
+        const v = parseFloat(value);
         if (!records.has(currentKey)) {
-          records.set(currentKey, []);
+          records.set(currentKey, [v]);
         } else {
-          records.get(currentKey)?.push(parseFloat(value));
+          records.get(currentKey)?.push(v);
         }
       }
     }
@@ -54,6 +58,7 @@ export function genNEM12Sql(data: string[][]): string[] {
 
   for (const [key, values] of records) {
     const [nmi, timestamp] = key.split("~");
+
     const consumption = values.reduce((a, b) => a + b, 0);
     insertStatements.push(
       `INSERT INTO meter_readings (nmi, timestamp, consumption) VALUES ('${nmi}', '${timestamp}', ${consumption.toFixed(

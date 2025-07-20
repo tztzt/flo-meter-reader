@@ -1,6 +1,7 @@
 import type { CSVFile } from "@/types";
 import { useState } from "react";
-import { genNEM12Sql } from "./utils/genNEM12Sql";
+import { generateSQLNem12 } from "./utils/generateSQLNem12";
+import { handleDownload } from "./utils/download";
 
 interface SQLGeneratorProps {
   file: CSVFile;
@@ -12,30 +13,12 @@ export const SQLGenerator = (props: SQLGeneratorProps) => {
   const [sql, setSql] = useState<string>("");
 
   const handleGenerateSQL = () => {
-    const sql = genNEM12Sql(file.data);
+    const sql = generateSQLNem12(file.data);
     setSql(sql.join("\n"));
   };
 
   const handleExportSQL = () => {
-    const sql = genNEM12Sql(file.data);
-    const sqlContent = sql.join("\n");
-
-    // Create blob and download link
-    const blob = new Blob([sqlContent], { type: "text/plain" });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    // Set download attributes
-    link.href = url;
-    link.download = "meter_readings.sql";
-
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-
-    // Cleanup
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    handleDownload(file);
   };
 
   const handleCopy = () => {
