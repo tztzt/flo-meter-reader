@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --color-flo-bg-1: #009877;
+  --color-flo-bg-2: #00b189;
+  --color-flo-bg-3: #d8f3ed;
+  --color-flo-logo: #fdedba;
+
+  --color-flo-btn-bg: #f7be00;
+
+  --color-flo-text-1: #00b189;
+}
+
+/* Import the font */
+@font-face {
+  font-family: "MagicalBrush";
+  src: url("/fonts/MagicalBrush.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Optional utility class (only available where index.css is imported) */
+@layer utilities {
+  .font-magical {
+    font-family: "MagicalBrush", cursive;
+  }
+}
