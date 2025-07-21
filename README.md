@@ -2,9 +2,11 @@
 
 A browser-based tool that allows users to upload a NEM12-format CSV file and generate SQL INSERT statements for the meter_readings table.
 
-You can try the application live here:
+![App Screenshot](public/screenshot.png)
 
-### 👉 [View Application](https://tztzt.github.io/flo-tools/)
+### 👉 [Try the Demo](https://tztzt.github.io/flo-tools/)
+
+> Note: Currently hosted on static github pages and subpage routes may not be handled correctly e.g. https://tztzt.github.io/flo-tools/meter
 
 ## Prerequisites
 
@@ -18,6 +20,9 @@ git clone https://github.com/tztzt/flo-meter-reader.git
 cd flo-meter-reader
 npm install
 npm run dev
+
+npm run test            # Run the test suite using Vitest
+npm run coverage        # Generate test coverage report and metrics
 ```
 
 ---
@@ -39,16 +44,21 @@ Build a tool that:
 - Handle data integrity and formatting
 - Provide a clear UI for previewing and extracting results
 
+### Technical objectives
+
+- Provide a centralised suite of tools instead of building separate products for various purposes
+- Create a skeletal scaffold for future development of other tools
+
 ## Design & Architecture
 
 ### Tech Stack
 
-| Tool                            | Why It Was Chosen                                                                          |
-| ------------------------------- | ------------------------------------------------------------------------------------------ |
-| React 18 + Vite                 | Fast dev environment, clean client-side architecture. React 18 for best test-compatibility |
-| Tailwind CSS                    | Utility-first styling for rapid iteration and go-to-market (GTM)                           |
-| PapaParse                       | Efficient, performant CSV parsing                                                          |
-| Vitest + Jest + Testing Library | Ensures components and logic are tested                                                    |
+| Tool                            | Why It Was Chosen                                                                                                  | Possible Cons                                                                    |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| React 18 + Vite                 | Fast dev environment, clean client-side architecture. React 18 for best test-compatibility, out of the box webpack | Limited customisations and functional support                                    |
+| Tailwind CSS                    | Utility-first styling for rapid iteration, less files to handle and context switching                              | Learning curve for developers used to CSS, does not support all CSS capabilities |
+| PapaParse                       | Efficient, performant CSV parsing                                                                                  | Requires understanding of API for advanced parsing functions                     |
+| Vitest + Jest + Testing Library | Ensures components and logic are tested                                                                            |
 
 ## File Format Assumptions
 
@@ -117,9 +127,15 @@ Each feature or component has its test logic nearby, ensuring changes are easier
 - ✅ Upload NEM12 CSV files (large file support)
 - ✅ Efficient parsing with PapaParse streaming
 - ✅ SQL generation for meter_readings table
-- ✅ Preview of raw and parsed data
+- ✅ Preview and toggle between raw and parsed data
 - ✅ Clean, minimal interface with Tailwind
 - ✅ Moderate test coverage for core components and logic
+
+### Secondary Features
+
+- Process multiple files quickly by removing uploaded files to upload other files
+- Support for data sets with other data intervals besides `30`
+- Conveniently copy SQL Insert statements or export in an `.sql` file
 
 ## Example SQL Output
 
