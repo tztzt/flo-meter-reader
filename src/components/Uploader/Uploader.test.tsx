@@ -8,7 +8,7 @@ import { MeterDataFileFormat } from "@/types";
 vi.mock("papaparse", async () => {
   return {
     default: {
-      parse: vi.fn((file, options) => {
+      parse: vi.fn((_file, options) => {
         options.complete?.({
           data: [
             ["Header1", "Header2"],
