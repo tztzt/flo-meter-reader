@@ -11,6 +11,7 @@ function App() {
           {routes.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
+          <Route path="*" element={routes[0].element} />
         </Routes>
       </div>
     </div>

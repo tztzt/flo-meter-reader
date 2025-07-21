@@ -6,6 +6,7 @@ import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/flo-meter-reader/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
