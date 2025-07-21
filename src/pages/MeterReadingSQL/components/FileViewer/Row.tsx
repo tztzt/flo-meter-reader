@@ -94,7 +94,11 @@ export const TableRow = ({
   return (
     <>
       {showHeader && (
-        <tr key={`header-${index}`} className="font-bold bg-gray-100">
+        <tr
+          key={`header-${index}`}
+          className="font-bold bg-gray-100"
+          data-testid="table-row-header"
+        >
           {(rowData[0] as RecordType) === RecordType.INTERVAL_DATA
             ? getIntervalDataHeaders(length).map((value, colIndex) => {
                 return <CustomTD key={colIndex} value={value} />;
@@ -104,7 +108,7 @@ export const TableRow = ({
               })}
         </tr>
       )}
-      <tr key={index}>
+      <tr key={index} data-testid="table-row-data">
         {filteredRow.map((value, colIndex) => (
           <CustomTD key={colIndex} value={value} />
         ))}

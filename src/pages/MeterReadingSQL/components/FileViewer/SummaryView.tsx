@@ -23,7 +23,7 @@ const constructSummaryData = (data: string[][]) => {
         const value = row[i + 2];
         if (!value || isNaN(parseFloat(value))) continue;
         if (!records.has(currentKey)) {
-          records.set(currentKey, []);
+          records.set(currentKey, [parseFloat(value)]);
         } else {
           records.get(currentKey)?.push(parseFloat(value));
         }
@@ -47,7 +47,7 @@ export const SummaryView = (props: { data: string[][] }) => {
   const summaryData = constructSummaryData(data);
 
   return (
-    <div>
+    <div data-testid="summary-view">
       <table className="w-1/2 text-sm border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-100">

@@ -17,7 +17,7 @@ export const NavBar = () => {
               end
               className={({ isActive }) =>
                 `text-lg md:text-xl transition-colors ${
-                  isActive ? "text-flo-primary" : "hover:text-flo-primary/80"
+                  isActive ? "underline" : ""
                 }`
               }
             >

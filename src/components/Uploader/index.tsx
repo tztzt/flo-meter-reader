@@ -74,6 +74,7 @@ export const Uploader = (props: UploaderProps) => {
           accept=".csv"
           onChange={handleFileChange}
           className="hidden"
+          data-testid="csv-uploader"
         />
       </label>
     </div>

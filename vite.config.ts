@@ -1,3 +1,6 @@
+/// <reference types="vitest"/>
+/// <reference types="vite/client"/>
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -16,5 +19,10 @@ export default defineConfig({
   server: {
     open: "/flo-tools/",
     port: 5174,
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    css: true,
   },
 });

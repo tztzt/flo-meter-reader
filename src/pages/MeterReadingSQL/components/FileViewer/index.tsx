@@ -34,17 +34,21 @@ export const FileViewer = (props: CSVViewerProps) => {
             setShowRawData={setShowRawData}
           />
           <button
+            data-testid="delete-button"
             className="w-8 h-8 rounded-full ml-auto flex items-center justify-center hover:bg-gray-400 active:bg-gray-500 transition-colors duration-200 hover:cursor-pointer"
             onClick={onDelete}
             onMouseEnter={() => setHoverDelete(true)}
             onMouseLeave={() => setHoverDelete(false)}
           >
-            <CloseIcon className=" white" />
+            <CloseIcon className="white" />
           </button>
         </div>
         {showRawData ? (
           <div className="overflow-x-auto  rounded">
-            <table className="table-auto min-w-full text-sm border-collapse border border-gray-100">
+            <table
+              data-testid="raw-data-table"
+              className="table-auto min-w-full text-sm border-collapse border border-gray-100"
+            >
               <tbody>
                 {filteredData.map((row, rowIndex) => (
                   <TableRow
@@ -52,15 +56,16 @@ export const FileViewer = (props: CSVViewerProps) => {
                     rowData={row}
                     index={rowIndex}
                     data={filteredData}
+                    data-testid="table-row"
                   />
                 ))}
               </tbody>
             </table>
           </div>
         ) : (
-          <SummaryView data={data} />
+          <SummaryView data-testid="summary-view" data={filteredData} />
         )}
-        <SQLGenerator file={file} />
+        <SQLGenerator data-testid="sql-generator" file={file} />
       </div>
     );
   }
