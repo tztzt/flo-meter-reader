@@ -34,13 +34,13 @@ export const SQLGenerator = (props: SQLGeneratorProps) => {
       <div className="flex gap-12">
         <button
           onClick={handleGenerateSQL}
-          className="w-full bg-blue-500 rounded-md p-2 hover:bg-blue-600 hover:cursor-pointer text-white"
+          className="w-40 bg-blue-500 rounded-md p-2 hover:bg-blue-600 hover:cursor-pointer text-white"
         >
           Generate SQL
         </button>
         <button
           onClick={handleExportSQL}
-          className="w-full bg-blue-500 rounded-md p-2 hover:bg-blue-600 hover:cursor-pointer text-white"
+          className="w-40 bg-blue-500 rounded-md p-2 hover:bg-blue-600 hover:cursor-pointer text-white"
         >
           Export SQL
         </button>
