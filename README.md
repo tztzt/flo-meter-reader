@@ -16,8 +16,8 @@ A browser-based tool that allows users to upload a NEM12-format CSV file and gen
 ## Getting Started
 
 ```
-git clone https://github.com/tztzt/flo-meter-reader.git
-cd flo-meter-reader
+git clone https://github.com/tztzt/flo-tools.git
+cd flo-tools
 npm install
 npm run dev
 
